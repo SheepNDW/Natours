@@ -1,0 +1,10 @@
+{
+  "liveSassCompile.settings.formats":[
+    {
+      "extensionName": ".css",
+      "format": "expanded",
+      "savePath": "/css"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false
+}
