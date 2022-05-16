@@ -63,3 +63,28 @@ h2標題 `.heading-secondary`
   }
 }
 ```
+
+### Features Section 
+
+背景歪斜效果
+
+```scss
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url(../img/nat-4.jpg);
+  background-size: cover;
+
+  transform: skewY(-7deg);
+  margin-top: -10rem;
+
+  // 選取所有第一個 child (此處選擇到 .row) 讓它偏移回來
+  & > * {
+    transform: skewY(7deg);
+  }
+}
+```
