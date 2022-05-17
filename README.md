@@ -88,3 +88,99 @@ h2標題 `.heading-secondary`
   }
 }
 ```
+
+### Tours Section
+
+卡片 `.card`
+
+* 翻轉效果
+
+```scss
+.card {
+  position: relative;
+  // perspective transform 的 3D 透視效果
+  // 參考文章：https://www.casper.tw/css/2013/10/11/css-perspective/
+  perspective: 150rem;
+  -moz-perspective: 150rem; // 針對老版本火狐的適配
+  height: 50rem;
+
+  &__side {
+    // 使用絕對定位使兩張卡片疊在一起
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50rem;
+    width: 100%;
+    transition: all 0.8s ease;
+    // backface-visibility 設定成 hidden, 讓背面為不可視
+    backface-visibility: hidden;
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      // 背面一開始是反轉的, hover 後翻回 0
+      transform: rotateY(180deg);
+    }
+  }
+
+  &:hover &__side--front {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+}
+```
+
+* 背景圖特效 - `background-blend-mode` 
+
+```scss
+&__picture {
+  background-size: cover;
+  height: 23rem;
+  // 背景混合模式, 參考文章：https://ithelp.ithome.com.tw/articles/10194930
+  background-blend-mode: screen;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+  &--1 {
+    background-image: linear-gradient(
+        to right bottom,
+        $color-secondary-light,
+        $color-secondary-dark
+      ),
+      url(/img/nat-5.jpg);
+  }
+}
+```
+
+* 卡片標題文字 - `box-decoration-break`
+
+> box-decoration-break 屬性規定當元素框被分段時，如何應用元素的 background、padding、border、border-image、box-shadow、margin 以及 clip-path。
+
+```scss
+&__heading {
+  position: absolute;
+  top: 12rem;
+  right: 2rem;
+
+  text-align: right;
+  width: 75%;
+  // 略...
+}
+
+&__heading-span {
+  padding: 1rem 1.5rem;
+  box-decoration-break: clone;
+
+  &--1 {
+    background-image: linear-gradient(
+      to right bottom,
+      rgba($color-secondary-light, 0.85),
+      rgba($color-secondary-dark, 0.85)
+    );
+  }
+}
+```
