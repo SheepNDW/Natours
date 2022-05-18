@@ -184,3 +184,44 @@ h2標題 `.heading-secondary`
   }
 }
 ```
+
+### Stories Section
+
+故事卡片 `.story`
+
+* 文繞圖(圓弧狀) - `float`、`shape-outside`、`clip-path`
+
+```scss
+&__shape {
+  position: relative;
+  width: 15rem;
+  height: 15rem;
+  float: left;
+  // 讓文字繞著圓弧排版
+  shape-outside: circle(50% at 50% 50%);
+  // 將圖片切成圓形
+  clip-path: circle(50% at 50% 50%);
+  transform: translateX(-3rem) skewX(12deg);
+  // 去除 hover 時出現的邊線
+  overflow: hidden;
+}
+```
+
+* 模糊效果 - `filter`
+
+```scss
+.story {
+  &__img {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4);
+    backface-visibility: hidden;
+    transition: all 0.5s;
+  }
+
+  &:hover &__img {
+    transform: translateX(-4rem) scale(1);
+    // blur 模糊, brightness: > 100% 變亮, < 100% 變暗
+    filter: blur(3px) brightness(80%);
+  }
+}
+```
