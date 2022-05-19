@@ -225,3 +225,136 @@ h2標題 `.heading-secondary`
   }
 }
 ```
+
+### Booking Section
+
+"solid color gradients" (透過漸層切出兩個區塊)
+
+```scss
+.book {
+  // 漸層方向亦可設置為角度, 延伸到 50% 後將剩下的改成透明 (transparent)
+  background-image: linear-gradient(
+      105deg,
+      rgba($color-white, 0.9) 0%,
+      rgba($color-white, 0.9) 50%,
+      transparent 50%
+    ),
+    url(/img/nat-10.jpg);
+}
+```
+輸入框 `.form__input`
+
+* focus 底線效果
+
+```scss
+.form {
+  &__input {
+    // 略...
+    border: none;
+    // 預留 border-bottom 位置
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+      border-bottom: 3px solid $color-primary;
+    }
+
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+  }
+}
+```
+
+* placeholder 滑動特效 - `:placeholder-shown`
+
+```scss
+.form {
+  &__input {
+    // 略...
+    &::placeholder {
+      color: $color-grey-dark-2;
+    }
+  }
+
+  &__label {
+    // 略...
+    display: block;
+    transition: all 0.3s;
+  }
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+}
+```
+
+radio 單選框
+
+> 使用 `::after` 及 `<span>` 客製化單選框
+```html
+<div class="form__radio-group">
+  <input
+    type="radio"
+    class="form__radio-input"
+    id="small"
+    name="size"
+  />
+  <label for="small" class="form__radio-label">
+    <span class="form__radio-button"></span>
+    Small tour group
+  </label>
+</div>
+```
+
+```scss
+&__radio-group {
+  width: 49%;
+  display: inline-block;
+}
+// 將原本的 input 給隱藏掉
+&__radio-input {
+  display: none;
+}
+
+&__radio-label {
+  position: relative;
+  padding-left: 4.5rem;
+  font-size: $default-font-size;
+  cursor: pointer;
+}
+
+&__radio-button {
+  position: absolute;
+  left: 0;
+  top: -0.4rem;
+  display: inline-block;
+  height: 3rem;
+  width: 3rem;
+  border: 5px solid $color-primary;
+  border-radius: 50%;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 1.3rem;
+    width: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $color-primary;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+}
+
+&__radio-input:checked ~ &__radio-label &__radio-button::after {
+  opacity: 1;
+}
+```
