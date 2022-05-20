@@ -358,3 +358,151 @@ radio 單選框
   opacity: 1;
 }
 ```
+
+### Navigation
+
+Nav 導覽列 hover 效果 - `.navigation__link`
+
+* 使用 `background-size` `background-position` 做到從右下至左上的背景位移
+
+```scss
+&__link {
+  &:link,
+  &:visited {
+    // 設置為 inline-block 讓 padding 及 translateX 生效
+    display: inline-block;
+    
+    // 略...
+
+    background-image: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 50%,
+      $color-white 50%
+    );
+    background-size: 220%;
+    transition: all 0.4s;
+
+    // 略...
+  }
+
+  &:hover,
+  &:active {
+    background-position: 100%;
+    color: $color-primary;
+    transform: translateX(1rem);
+  }
+}
+```
+導覽選單的縮放特效
+
+```scss
+.navigation {
+  // 略...
+
+  &__background {
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    // radial-gradient 放射漸層
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+    z-index: 1000;
+    transition: transform 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+  }
+
+  &__nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1500;
+
+    // 初始狀態設置為隱藏且寬度為 0
+    opacity: 0;
+    width: 0;
+    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  // 略...
+
+  // 透過 checkbox 的偽類 `:checked` 去觸發點擊實的效果
+  &__checkbox:checked ~ &__background {
+    transform: scale(80);
+  }
+
+  &__checkbox:checked ~ &__nav {
+    opacity: 1;
+    width: 100%;
+  }
+}
+```
+漢堡選單特效
+
+```scss
+&__button {
+  // 略...
+  text-align: center;
+  cursor: pointer;
+}
+
+// 略...
+
+// ICON
+&__icon {
+  position: relative;
+  margin-top: 3.5rem;
+
+  &,
+  &::before,
+  &::after {
+    width: 3rem;
+    height: 2px;
+    background-color: $color-grey-dark-3;
+    display: inline-block;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+  }
+
+  &::before {
+    top: -0.8rem;
+  }
+
+  &::after {
+    top: 0.8rem;
+  }
+}
+
+&__button:hover &__icon::before {
+  top: -1rem;
+}
+
+&__button:hover &__icon::after {
+  top: 1rem;
+}
+
+&__checkbox:checked + &__button &__icon {
+  background-color: transparent;
+}
+
+&__checkbox:checked + &__button &__icon::before {
+  top: 0;
+  transform: rotate(135deg);
+}
+
+&__checkbox:checked + &__button &__icon::after {
+  top: 0;
+  transform: rotate(-135deg);
+}
+```
