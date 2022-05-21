@@ -506,3 +506,63 @@ Nav 導覽列 hover 效果 - `.navigation__link`
   transform: rotate(-135deg);
 }
 ```
+
+### Popup box
+
+彈出框 `.popup`
+
+* 布局 
+
+> 使用 `display: table` `display: table-cell` 來實現內部等高布局
+```scss
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba($color-black, 0.8);
+  z-index: 9999;
+
+  &__content {
+    @include absCenter;
+
+    width: 75%;
+    background-color: $color-white;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    display: table;
+  }
+
+  &__left {
+    width: calc((1 / 3) * 100%);
+    display: table-cell;
+  }
+
+  &__right {
+    width: calc((2 / 3) * 100%);
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+
+    // 將文字分成兩列
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid $color-grey-light-2;
+
+    // 同個字分行時補上 "-"
+    hyphens: auto;
+  }
+}
+```
