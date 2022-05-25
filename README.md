@@ -566,3 +566,25 @@ Nav 導覽列 hover 效果 - `.navigation__link`
   }
 }
 ```
+
+### Responsive Images in HTML
+參考文章：[響應式圖片 (Responsive Images): img srcset 用法介紹](https://shubo.io/responsive-image/)
+
+> img srcset 可以根據螢幕的 pixel density 或是圖片在螢幕上的實際寬度，決定要載入哪張圖片。亦可搭配 `<picture>` 標籤一起使用，相較於每個 <img> 只能定義一組 srcset，每個 <picture> 內可以定義多組 source，其中每個 source 可以各自用 media 屬性指定 media query，並且用 srcset 定義各自的圖片集。
+
+```html
+<picture class="footer__logo">
+  <source
+    srcset="
+      img/logo-green-small-1x.png 1x,
+      img/logo-green-small-2x.png 2x
+    "
+    media="(max-width: 37.5em)"
+  />
+  <!-- 超出 media query 範圍就走原本的 img -->
+  <img
+    srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x"
+    alt="Logo"
+  />
+</picture>
+```
