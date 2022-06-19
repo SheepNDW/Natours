@@ -1,6 +1,5 @@
 # Natours
-advanced css course project #1
-
+hands-on project from the udemy course by Jonas Schmedtmann.
 
 ## Notes
 
